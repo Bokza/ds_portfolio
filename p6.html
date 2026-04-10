@@ -150,7 +150,16 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
             trigger: 'axis',
             backgroundColor: 'rgba(15, 23, 42, 0.9)',
             borderColor: '#475569',
-            textStyle: { color: '#F8FAFC' }
+            textStyle: { color: '#F8FAFC' },
+            formatter: function(params) {
+                let result = params[0].axisValue + '<br/>';
+                const colors = { '외기온도': '#94A3B8', '기존 고정 제어': '#64748B', 'DQN 난방 제어': '#8B5CF6' };
+                params.forEach(p => {
+                    const c = colors[p.seriesName] || p.color;
+                    result += `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${c};margin-right:6px;"></span>${p.seriesName}　<b>${parseFloat(p.value).toFixed(1)}</b><br/>`;
+                });
+                return result;
+            }
         },
 
                         animation: false,
