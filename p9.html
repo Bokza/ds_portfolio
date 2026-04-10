@@ -176,7 +176,7 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
 
                     const option = {
                         animation: false,
-                        grid: { top: 20, bottom: 25, left: 40, right: 40, containLabel: true },
+                        grid: { top: 42, bottom: 25, left: 40, right: 40, containLabel: true },
                         tooltip: {
                             trigger: 'axis',
                             backgroundColor: 'rgba(15, 23, 42, 0.9)',
@@ -200,6 +200,8 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                                 position: 'left',
                                 splitLine: { lineStyle: { color: 'rgba(71, 85, 105, 0.3)', type: 'dashed' } },
                                 axisLabel: { color: '#94A3B8' },
+                                nameLocation: 'end',
+                                nameGap: 8,
                                 nameTextStyle: { color: '#64748B' }
                             },
                             {
@@ -210,6 +212,8 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                                 position: 'right',
                                 splitLine: { show: false },
                                 axisLabel: { color: '#60A5FA' },
+                                nameLocation: 'end',
+                                nameGap: 8,
                                 nameTextStyle: { color: '#60A5FA' }
                             }
                         ],

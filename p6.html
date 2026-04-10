@@ -163,7 +163,7 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
         },
 
                         animation: false,
-                        grid: { top: 20, bottom: 25, left: 40, right: 20, containLabel: true },
+                        grid: { top: 42, bottom: 25, left: 40, right: 20, containLabel: true },
                         xAxis: {
                             type: 'category',
                             data: hours,
@@ -173,7 +173,9 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                         yAxis: [
                             {
                                 type: 'value',
-                                name: 'Temp (°C)',
+                                name: '온도 (°C)',
+                            nameLocation: 'end',
+                            nameGap: 8,
                                 min: -10,
                                 max: 30,
                                 splitLine: { lineStyle: { color: 'rgba(71, 85, 105, 0.3)' } },
