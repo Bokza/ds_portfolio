@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>자격증 및 교육 이력</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A; /* Slate 900 */
+            color: #F8FAFC; /* Slate 50 */
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        #slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            box-sizing: border-box;
+        }
+
+        /* Background Elements */
+        .bg-grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
+        }
+
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .blob-emerald {
+            width: 600px;
+            height: 600px;
+            background-color: #10B981; /* Emerald 500 */
+            top: -200px;
+            left: -100px;
+        }
+
+        .blob-blue {
+            width: 500px;
+            height: 500px;
+            background-color: #3B82F6; /* Blue 500 */
+            bottom: -150px;
+            right: -100px;
+        }
+
+        /* Content Layer */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-title h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: white;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            color: #94A3B8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        /* Timeline Container */
+        .timeline-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 0 40px;
+        }
+
+        /* The Main Horizontal Line */
+        .timeline-line-container {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 4px;
+            background-color: rgba(71, 85, 105, 0.4);
+            transform: translateY(-50%);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #3B82F6;
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+
+        /* Items Container */
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            height: 400px; /* Specific height for top/bottom distribution */
+        }
+
+        .timeline-item {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Connecting vertical lines */
+        .connector-line {
+            position: absolute;
+            width: 2px;
+            background-color: #475569;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        /* Top items: Card above, Dot on line */
+        .item-top .card-wrapper {
+            position: absolute;
+            bottom: 50%;
+            margin-bottom: 40px; /* Distance from line */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .item-top .connector-line {
+            top: 50%;
+            height: 40px; /* Connects dot to card bottom */
+            transform: translate(-50%, -100%);
+        }
+
+        .item-top .date-pill {
+            position: absolute;
+            top: 50%;
+            margin-top: 20px;
+        }
+
+        /* Bottom items: Dot on line, Card below */
+        .item-bottom .card-wrapper {
+            position: absolute;
+            top: 50%;
+            margin-top: 40px; /* Distance from line */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .item-bottom .connector-line {
+            top: 50%;
+            height: 40px;
+        }
+
+        .item-bottom .date-pill {
+            position: absolute;
+            bottom: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* The Dot on the main line */
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #0F172A;
+            border: 4px solid #3B82F6;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Card Styles */
+        .cert-card {
+            width: 260px;
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: #60A5FA;
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        .cert-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #60A5FA;
+            font-size: 1.5rem;
+        }
+
+        .cert-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            line-height: 1.3;
+        }
+
+        .cert-org {
+            font-size: 0.85rem;
+            color: #94A3B8;
+        }
+
+        /* Date Pill */
+        .date-pill {
+            background-color: rgba(15, 23, 42, 0.9);
+            border: 1px solid #475569;
+            color: #CBD5E1;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-family: 'Roboto Mono', monospace; /* Monospace for numbers */
+            z-index: 15;
+        }
+        
+        /* Specific accent colors */
+        .accent-blue .timeline-dot { border-color: #3B82F6; }
+        .accent-blue .cert-icon { color: #3B82F6; background-color: rgba(59, 130, 246, 0.1); }
+        
+        .accent-emerald .timeline-dot { border-color: #10B981; }
+        .accent-emerald .cert-icon { color: #10B981; background-color: rgba(16, 185, 129, 0.1); }
+        
+        .accent-purple .timeline-dot { border-color: #8B5CF6; }
+        .accent-purple .cert-icon { color: #8B5CF6; background-color: rgba(139, 92, 246, 0.1); }
+        
+        .accent-amber .timeline-dot { border-color: #F59E0B; }
+        .accent-amber .cert-icon { color: #F59E0B; background-color: rgba(245, 158, 11, 0.1); }
+
+    </style>
+</head>
+<body>
+<div id="slide-container">
+<!-- Background -->
+<div class="bg-grid-pattern"></div>
+<div class="glow-blob blob-emerald"></div>
+<div class="glow-blob blob-blue"></div>
+<div class="content-layer">
+<!-- Header -->
+<div class="header">
+<div class="header-title">
+<p class="text-blue-400 font-bold text-sm tracking-widest uppercase mb-1">Certification &amp; Education</p>
+<h1>자격증 및 전문 이력</h1>
+<div class="header-subtitle">
+<p>데이터 분석 및 엔지니어링 역량 검증 타임라인</p>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 text-slate-400 text-sm">
+<i class="fas fa-check-circle text-emerald-500"></i>
+<span>All Certified</span>
+</div>
+</div>
+</div>
+<!-- Main Timeline -->
+<div class="timeline-wrapper">
+<!-- Background Line -->
+<div class="timeline-line-container">
+<div class="timeline-progress"></div>
+</div>
+<!-- Items -->
+<div class="timeline-items">
+<!-- Item 1: 2021.03 (Top) -->
+<div class="timeline-item item-top accent-blue">
+<div class="card-wrapper">
+<div class="cert-card">
+<div class="cert-icon">
+<i class="fas fa-laptop-code"></i>
+</div>
+<div>
+<p class="cert-title">컴퓨터활용능력 1급</p>
+<p class="cert-org">대한상공회의소</p>
+</div>
+<div class="mt-2 text-xs text-blue-300 font-medium bg-blue-500/10 py-1 rounded">
+                                Database &amp; Spreadsheet
+                            </div>
+</div>
+</div>
+<div class="connector-line"></div>
+<div class="timeline-dot"></div>
+<div class="date-pill">2021.03</div>
+</div>
+<!-- Item 2: 2021.09 (Bottom) -->
+<div class="timeline-item item-bottom accent-emerald">
+<div class="date-pill">2021.09</div>
+<div class="timeline-dot"></div>
+<div class="connector-line"></div>
+<div class="card-wrapper">
+<div class="cert-card">
+<div class="cert-icon">
+<i class="fas fa-chart-pie"></i>
+</div>
+<div>
+<p class="cert-title">데이터분석준전문가</p>
+<p class="cert-org text-xs text-slate-400">(ADsP) 한국데이터산업진흥원</p>
+</div>
+<div class="mt-2 text-xs text-emerald-300 font-medium bg-emerald-500/10 py-1 rounded">
+                                Data Analysis Basics
+                            </div>
+</div>
+</div>
+</div>
+<!-- Item 3: 2022.06 (Top) -->
+<div class="timeline-item item-top accent-purple">
+<div class="card-wrapper">
+<div class="cert-card">
+<div class="cert-icon">
+<i class="fas fa-clipboard-list"></i>
+</div>
+<div>
+<p class="cert-title">사회조사분석사 2급</p>
+<p class="cert-org">한국산업인력공단</p>
+</div>
+<div class="mt-2 text-xs text-purple-300 font-medium bg-purple-500/10 py-1 rounded">
+                                Statistical Survey
+                            </div>
+</div>
+</div>
+<div class="connector-line"></div>
+<div class="timeline-dot"></div>
+<div class="date-pill">2022.06</div>
+</div>
+<!-- Item 4: 2022.07 (Bottom) -->
+<div class="timeline-item item-bottom accent-amber">
+<div class="date-pill">2022.07</div>
+<div class="timeline-dot"></div>
+<div class="connector-line"></div>
+<div class="card-wrapper">
+<div class="cert-card">
+<div class="cert-icon">
+<i class="fas fa-database"></i>
+</div>
+<div>
+<p class="cert-title">빅데이터 분석기사</p>
+<p class="cert-org">한국데이터산업진흥원</p>
+</div>
+<div class="mt-2 text-xs text-amber-300 font-medium bg-amber-500/10 py-1 rounded">
+                                Data Engineering
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

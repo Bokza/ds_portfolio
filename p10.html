@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>데이터 분석 대회 경험 하이라이트</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A; /* Slate 900 */
+            color: #F8FAFC; /* Slate 50 */
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        #slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            box-sizing: border-box;
+        }
+
+        /* Background Elements */
+        .bg-grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
+        }
+
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .blob-gold {
+            width: 600px;
+            height: 600px;
+            background-color: #F59E0B; /* Amber 500 */
+            top: -200px;
+            right: -100px;
+        }
+
+        .blob-blue {
+            width: 500px;
+            height: 500px;
+            background-color: #3B82F6; /* Blue 500 */
+            bottom: -150px;
+            left: -100px;
+        }
+
+        /* Content Layer */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-title h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: white;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            color: #94A3B8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 24px;
+            flex: 1;
+        }
+
+        /* Card Styles */
+        .contest-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(8px);
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Alternative for gradients to comply with rules */
+        .card-gold-bg {
+            background-color: rgba(245, 158, 11, 0.08) !important;
+        }
+
+        /* Rank Badge */
+        .rank-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 16px;
+            border-bottom-left-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .rank-gold {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #FCD34D;
+            border-left: 1px solid rgba(245, 158, 11, 0.3);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .rank-silver {
+            background-color: rgba(148, 163, 184, 0.2);
+            color: #E2E8F0;
+            border-left: 1px solid rgba(148, 163, 184, 0.3);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .rank-bronze {
+            background-color: rgba(180, 83, 9, 0.2);
+            color: #FDBA74;
+            border-left: 1px solid rgba(180, 83, 9, 0.3);
+            border-bottom: 1px solid rgba(180, 83, 9, 0.3);
+        }
+
+        /* Card Content */
+        .card-header {
+            margin-bottom: 12px;
+            margin-right: 40px; /* Space for badge */
+        }
+
+        .contest-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .contest-sub {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .key-point-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+
+        .key-point-list li {
+            font-size: 0.85rem;
+            color: #CBD5E1;
+            margin-bottom: 6px;
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .key-point-list li::before {
+            content: "•";
+            color: #60A5FA;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Footer: Tech & Metrics */
+        .card-footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tech-mini-tags {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mini-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background-color: rgba(15, 23, 42, 0.6);
+            color: #94A3B8;
+            border: 1px solid rgba(71, 85, 105, 0.4);
+        }
+
+        .metric-box {
+            text-align: right;
+        }
+
+        .metric-val {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #F1F5F9;
+        }
+
+        .metric-lbl {
+            font-size: 0.65rem;
+            color: #64748B;
+            text-transform: uppercase;
+        }
+
+        /* Highlight Colors */
+        .text-gold { color: #FCD34D; }
+        .text-blue { color: #60A5FA; }
+        
+        /* Specific Card Borders based on Rank */
+        .border-gold { border-color: rgba(245, 158, 11, 0.4); }
+        .border-blue { border-color: rgba(59, 130, 246, 0.4); }
+
+    </style>
+</head>
+<body>
+<div id="slide-container">
+<!-- Background -->
+<div class="bg-grid-pattern"></div>
+<div class="glow-blob blob-gold"></div>
+<div class="glow-blob blob-blue"></div>
+<div class="content-layer">
+<!-- Header -->
+<div class="header">
+<div class="header-title">
+<p class="text-yellow-500 font-bold text-sm tracking-widest uppercase mb-1">Competition Experience</p>
+<h1>데이터 분석 대회 성과 <span style="font-weight:300; opacity:0.6;">| Awards &amp; Recognition</span></h1>
+</div>
+<div class="text-right">
+<div class="flex gap-4">
+<div class="text-center">
+<p class="text-2xl font-bold text-white">6</p>
+<p class="text-xs text-slate-400 uppercase">Total</p>
+</div>
+<div class="w-px bg-slate-700 h-10"></div>
+<div class="text-center">
+<p class="text-2xl font-bold text-yellow-400">3</p>
+<p class="text-xs text-slate-400 uppercase">Wins (1st)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Grid Container -->
+<div class="grid-container">
+<!-- Card 1: Youtube Subscriber (1st) -->
+<div class="contest-card border-gold card-gold-bg">
+<div class="rank-badge rank-gold"><i class="fas fa-trophy mr-1"></i> 1위</div>
+<div class="card-header">
+<h2 class="contest-title">유튜브 구독자 수 회귀식 추론</h2>
+<p class="contest-sub">교내 통계경진대회 회귀분석 부문</p>
+</div>
+<ul class="key-point-list">
+<li><p>Best Subset Selection 기반 최적 변수 도출</p></li>
+<li><p>오차항 정규성/등분산성/독립성 가정 검정</p></li>
+<li><p>"Shorts" 콘텐츠의 유의미한 영향 입증</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">SPSS</span>
+<span class="mini-tag">Regression</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-gold">Valid</div>
+<div class="metric-lbl">Model Fit</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Subscription Renewal (1st) -->
+<div class="contest-card border-gold card-gold-bg">
+<div class="rank-badge rank-gold"><i class="fas fa-trophy mr-1"></i> 1위</div>
+<div class="card-header">
+<h2 class="contest-title">학습 플랫폼 구독 갱신 예측</h2>
+<p class="contest-sub">2023 사용자 행동 데이터 분석</p>
+</div>
+<ul class="key-point-list">
+<li><p>ESD/IQR 기반 클래스별 이상치 처리</p></li>
+<li><p>Target Encoding 피처 엔지니어링</p></li>
+<li><p>PyTorch MLP 모델 설계 및 학습</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">PyTorch</span>
+<span class="mini-tag">MLP</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-gold">0.5264</div>
+<div class="metric-lbl">Macro F1 Score</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Startup Success (1st) -->
+<div class="contest-card border-gold card-gold-bg">
+<div class="rank-badge rank-gold"><i class="fas fa-trophy mr-1"></i> 1위</div>
+<div class="card-header">
+<h2 class="contest-title">기업 성공 확률 예측</h2>
+<p class="contest-sub">스타트업 비즈니스 데이터 분석</p>
+</div>
+<ul class="key-point-list">
+<li><p>직원/매출/투자금 기반 6개 파생변수 생성</p></li>
+<li><p>결측치 그룹 평균 대체 및 이상치 보정</p></li>
+<li><p>RandomForest + GridSearch 최적화</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">RF</span>
+<span class="mini-tag">GridSearch</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-gold">0.2027</div>
+<div class="metric-lbl">MAE (Error)</div>
+</div>
+</div>
+</div>
+<!-- Card 4: RF Optimization (Pre-eval 1st) -->
+<div class="contest-card border-blue">
+<div class="rank-badge rank-silver"><i class="fas fa-star mr-1"></i> 사전1위</div>
+<div class="card-header">
+<h2 class="contest-title">RF 파라미터 최적화</h2>
+<p class="contest-sub">하이퍼파라미터 튜닝 챌린지</p>
+</div>
+<ul class="key-point-list">
+<li><p>Optuna 활용 베이지안 최적화 탐색</p></li>
+<li><p>Grid Search를 통한 미세 조정(Fine-tuning)</p></li>
+<li><p>탐색 시간 대비 성능 효율성 극대화</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">Optuna</span>
+<span class="mini-tag">AutoML</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-blue">0.833</div>
+<div class="metric-lbl">AUC Score</div>
+</div>
+</div>
+</div>
+<!-- Card 5: Seoul Temp (4th) -->
+<div class="contest-card border-blue">
+<div class="rank-badge rank-silver"><i class="fas fa-medal mr-1"></i> 4위</div>
+<div class="card-header">
+<h2 class="contest-title">서울시 평균 기온 예측</h2>
+<p class="contest-sub">시계열 기상 데이터 분석</p>
+</div>
+<ul class="key-point-list">
+<li><p>VIF 기반 다중공선성 진단 및 변수 제거</p></li>
+<li><p>Prophet(추세) + XGBoost(잔차) 결합</p></li>
+<li><p>하이브리드 모델링으로 예측 성능 극대화</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">Prophet</span>
+<span class="mini-tag">XGBoost</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-blue">2.556</div>
+<div class="metric-lbl">MAE Score</div>
+</div>
+</div>
+</div>
+<!-- Card 6: Loan Grade (7th) -->
+<div class="contest-card border-blue">
+<div class="rank-badge rank-silver" style="font-size:0.75rem;">7위 (사전2위)</div>
+<div class="card-header">
+<h2 class="contest-title">대출 등급 분류 예측</h2>
+<p class="contest-sub">금융 고객 데이터 등급 분류</p>
+</div>
+<ul class="key-point-list">
+<li><p>카이제곱/ANOVA 검정 통한 변수 유의성 분석</p></li>
+<li><p>Stratified 5-Fold CV 검증 전략 수립</p></li>
+<li><p>학습 곡선(Learning Curve) 기반 과적합 방지</p></li>
+</ul>
+<div class="card-footer">
+<div class="tech-mini-tags">
+<span class="mini-tag">sklearn</span>
+<span class="mini-tag">RF</span>
+</div>
+<div class="metric-box">
+<div class="metric-val text-blue">0.947</div>
+<div class="metric-lbl">Macro F1 Score</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

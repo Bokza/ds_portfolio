@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프로젝트 개요</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A; /* Slate 900 */
+            color: #F8FAFC; /* Slate 50 */
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        #slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+        }
+
+        /* Background Elements */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(30, 41, 59, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 41, 59, 0.5) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .orb-top-right {
+            width: 400px;
+            height: 400px;
+            background-color: #3B82F6;
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-bottom-left {
+            width: 300px;
+            height: 300px;
+            background-color: #10B981;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        /* Content Z-Index */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .header-title h2 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.025em;
+            margin: 0;
+        }
+        
+        .header-subtitle p {
+            font-size: 1rem;
+            color: #94A3B8; /* Slate 400 */
+            margin: 0.5rem 0 0 0;
+        }
+
+        /* Grid Layout */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 24px;
+            flex: 1;
+        }
+
+        /* Card Styling */
+        .project-card {
+            background-color: rgba(30, 41, 59, 0.4); /* Slate 800 + opacity */
+            border: 1px solid rgba(71, 85, 105, 0.6); /* Slate 600 */
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        /* Specific Grid Positioning for 5 items */
+        .card-1 { grid-column: 1; grid-row: 1; }
+        .card-2 { grid-column: 2; grid-row: 1; }
+        .card-3 { grid-column: 3; grid-row: 1; }
+        /* Center the bottom two */
+        .card-4 { grid-column: 1 / span 2; grid-row: 2; width: 80%; margin-left: auto; margin-right: 0; transform: translateX(10%); } 
+        /* Actually simpler to just use 2 columns in bottom row logic, 
+           but CSS Grid alignment for 3-top 2-bottom is cleaner with flex or specific spans.
+           Let's try a different approach: 
+           Top row: 3 cols
+           Bottom row: 2 cols centered using flex box wrapper for the bottom part? 
+           No, pure grid is better for alignment. 
+           Let's use specific spans:
+           Row 1: 1, 1, 1
+           Row 2: Left offset, Middle-ish
+           Actually, let's just make the bottom two cards span 1.5 columns visually or just use flex wrap.
+        */
+
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: 100%;
+        }
+
+        .row-top {
+            display: flex;
+            gap: 24px;
+            flex: 1;
+        }
+
+        .row-bottom {
+            display: flex;
+            gap: 24px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .project-card-flex {
+            flex: 1;
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .row-bottom .project-card-flex {
+            max-width: 32%; /* Match width of top row items approx */
+            flex: 0 0 32%;
+        }
+
+        /* Card Content */
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-blue { background-color: rgba(59, 130, 246, 0.2); color: #60A5FA; }
+        .icon-green { background-color: rgba(16, 185, 129, 0.2); color: #34D399; }
+        .icon-purple { background-color: rgba(167, 139, 250, 0.2); color: #A78BFA; }
+        .icon-red { background-color: rgba(248, 113, 113, 0.2); color: #F87171; }
+        .icon-yellow { background-color: rgba(251, 191, 36, 0.2); color: #FBBF24; }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #94A3B8;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .tech-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: rgba(15, 23, 42, 0.5);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #CBD5E1;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .number-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            line-height: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div id="slide-container">
+<!-- Background -->
+<div class="bg-grid"></div>
+<div class="glow-orb orb-top-right"></div>
+<div class="glow-orb orb-bottom-left"></div>
+<!-- Content -->
+<div class="content-layer">
+<!-- Header -->
+<div class="header">
+<div class="header-title">
+<p class="text-blue-400 font-bold text-sm tracking-widest uppercase mb-1">Project Overview</p>
+<h2>프로젝트 한눈에 보기</h2>
+<div class="header-subtitle">
+<p>건물 에너지 관리 효율화를 위해 개발 및 운영 중인 5가지 핵심 ML 서비스</p>
+</div>
+</div>
+<!-- Mini Stats (Optional) -->
+<div class="flex gap-6 text-right">
+<div>
+<p class="text-xs text-slate-400 uppercase tracking-wider">Total Projects</p>
+<p class="text-2xl font-bold text-white">5</p>
+</div>
+<div>
+<p class="text-xs text-slate-400 uppercase tracking-wider">Deployed</p>
+<p class="text-2xl font-bold text-green-400">Production</p>
+</div>
+</div>
+</div>
+<!-- Grid Content -->
+<div class="grid-container">
+<!-- Top Row (3 items) -->
+<div class="row-top">
+<!-- Project 1 -->
+<div class="project-card-flex">
+<div class="number-badge">01</div>
+<div class="card-icon icon-blue">
+<i class="fa-solid fa-people-group"></i>
+</div>
+<h3 class="card-title">재실 예측 솔루션</h3>
+<p class="card-desc">
+                            전열·조명 에너지 패턴을 분석하여 실시간 재실 여부 및 재실률을 예측하는 BEMS 핵심 서비스.
+                        </p>
+<div class="mt-auto">
+<span class="tech-pill">HMM</span>
+<span class="tech-pill">KMeans</span>
+<span class="tech-pill">BentoML</span>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="project-card-flex">
+<div class="number-badge">02</div>
+<div class="card-icon icon-yellow">
+<i class="fa-solid fa-bolt"></i>
+</div>
+<h3 class="card-title">에너지 사용량 예측</h3>
+<p class="card-desc">
+                            15분 단위 데이터를 기반으로 XGBoost 듀얼 모델을 활용해 미래 수요와 낭비량을 정밀 예측.
+                        </p>
+<div class="mt-auto">
+<span class="tech-pill">XGBoost</span>
+<span class="tech-pill">R² 0.93</span>
+<span class="tech-pill">MLflow</span>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="project-card-flex">
+<div class="number-badge">03</div>
+<div class="card-icon icon-purple">
+<i class="fa-solid fa-robot"></i>
+</div>
+<h3 class="card-title">LLM 기반 분석 챗봇</h3>
+<p class="card-desc">
+                            자연어로 복잡한 에너지 데이터를 조회하고 분석할 수 있는 멀티턴 대화형 AI 에이전트.
+                        </p>
+<div class="mt-auto">
+<span class="tech-pill">LangGraph</span>
+<span class="tech-pill">GPT-4</span>
+<span class="tech-pill">FastAPI</span>
+</div>
+</div>
+</div>
+<!-- Bottom Row (2 items, centered) -->
+<div class="row-bottom">
+<!-- Project 4 -->
+<div class="project-card-flex">
+<div class="number-badge">04</div>
+<div class="card-icon icon-red">
+<i class="fa-solid fa-temperature-arrow-up"></i>
+</div>
+<h3 class="card-title">DQN 냉난방 자동제어</h3>
+<p class="card-desc">
+                            강화학습(DQN)을 통해 쾌적 범위 유지와 에너지 비용 절감을 동시에 달성하는 제어 정책 학습.
+                        </p>
+<div class="mt-auto">
+<span class="tech-pill">PyTorch</span>
+<span class="tech-pill">Reinforcement Learning</span>
+<span class="tech-pill">Airflow</span>
+</div>
+</div>
+<!-- Project 5 -->
+<div class="project-card-flex">
+<div class="number-badge">05</div>
+<div class="card-icon icon-green">
+<i class="fa-solid fa-chart-line"></i>
+</div>
+<h3 class="card-title">에너지·IAQ 이상 탐지</h3>
+<p class="card-desc">
+                            통계적 기법 앙상블을 적용하여 50개 이상의 센서 데이터에서 이상 징후를 실시간 모니터링.
+                        </p>
+<div class="mt-auto">
+<span class="tech-pill">Hampel Filter</span>
+<span class="tech-pill">IQR</span>
+<span class="tech-pill">Real-time</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
