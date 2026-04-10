@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DQN 기반 건물 냉난방 자동 제어 시스템</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
@@ -28,6 +28,9 @@
         .highlight-violet { color: #A78BFA; font-weight: 700; }
         .highlight-cyan { color: #22D3EE; font-weight: 700; }
     </style>
+<style>
+html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background-color: #0F172A; }
+</style>
 </head>
 <body>
 <div class="slide-container">
@@ -204,5 +207,21 @@
 </div>
 <style>.slide-nav{position:fixed;bottom:24px;right:24px;display:flex;gap:10px;z-index:9999}.slide-nav a{background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.15);color:#F8FAFC;padding:10px 22px;border-radius:8px;text-decoration:none;font-family:"Noto Sans KR",sans-serif;font-size:14px;font-weight:500;backdrop-filter:blur(10px);transition:all 0.2s}.slide-nav a:hover{background:rgba(59,130,246,0.6);border-color:rgba(59,130,246,0.5)}</style>
 <div class="slide-nav"><a href="p5.html">← 이전</a><a href="p7.html">다음 →</a></div>
+
+<script>
+function scaleSlide() {
+    var slide = document.getElementById('slide-container') || document.querySelector('.slide-container');
+    if (!slide) return;
+    var scaleX = window.innerWidth / 1280;
+    var scaleY = window.innerHeight / 720;
+    var scale = Math.min(scaleX, scaleY);
+    slide.style.transform = 'scale(' + scale + ')';
+    slide.style.transformOrigin = 'top left';
+    slide.style.marginLeft = ((window.innerWidth - 1280 * scale) / 2) + 'px';
+    slide.style.marginTop = ((window.innerHeight - 720 * scale) / 2) + 'px';
+}
+window.addEventListener('load', scaleSlide);
+window.addEventListener('resize', scaleSlide);
+</script>
 </body>
 </html>
