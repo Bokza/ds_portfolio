@@ -260,6 +260,20 @@
 <style>
 html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background-color: #0F172A; }
 </style>
+<style id="portfolio-anim">
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes glowPulse {
+    0%, 100% { opacity: var(--glow-opacity, 0.15); filter: blur(var(--glow-blur, 100px)) brightness(1); }
+    50%       { opacity: calc(var(--glow-opacity, 0.15) * 1.7); filter: blur(var(--glow-blur, 100px)) brightness(1.3); }
+}
+@keyframes borderGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+    50%       { box-shadow: 0 0 18px 2px rgba(59,130,246,0.18); }
+}
+</style>
 </head>
 <body>
 <div id="slide-container">
@@ -449,6 +463,66 @@ function scaleSlide() {
 }
 window.addEventListener('load', scaleSlide);
 window.addEventListener('resize', scaleSlide);
+</script>
+<script id="portfolio-anim-js">
+(function() {
+    // ── Entry animation (staggered fadeInUp) ──────────────────────────────
+    var all = Array.from(document.querySelectorAll('[data-object="true"]'));
+    var contentIdx = 0;
+    all.forEach(function(el) {
+        var inlineOp = parseFloat(el.style.opacity);
+        var isBlur = el.style.filter && el.style.filter.includes('blur');
+        var isDecorative = isBlur || (!isNaN(inlineOp) && inlineOp < 0.5);
+        if (isDecorative) {
+            // Preserve original opacity as CSS var, then pulse
+            var op = isNaN(inlineOp) ? '0.15' : String(inlineOp);
+            var blur = (el.style.filter.match(/blur\(([^)]+)\)/) || ['','100px'])[1];
+            el.style.setProperty('--glow-opacity', op);
+            el.style.setProperty('--glow-blur', blur);
+            el.style.animation = 'glowPulse ' + (3.5 + Math.random()*1.5).toFixed(1) + 's ease-in-out ' + (Math.random()*2).toFixed(1) + 's infinite';
+            return;
+        }
+        var delay = (0.05 + contentIdx * 0.085).toFixed(2);
+        el.style.opacity = '0';
+        el.style.animation = 'fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) ' + delay + 's forwards';
+        contentIdx++;
+    });
+
+    // ── Count-up for large KPI numbers ───────────────────────────────────
+    function countUp(el, target, dec, suffix, startMs) {
+        var orig = el.textContent;
+        setTimeout(function() {
+            var duration = 1100;
+            var t0 = null;
+            function step(ts) {
+                if (!t0) t0 = ts;
+                var p = Math.min((ts - t0) / duration, 1);
+                p = 1 - Math.pow(1 - p, 3); // ease-out cubic
+                var v = p * target;
+                el.textContent = (dec ? v.toFixed(dec) : Math.floor(v)) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+                else el.textContent = (dec ? target.toFixed(dec) : target) + suffix;
+            }
+            requestAnimationFrame(step);
+        }, startMs);
+    }
+
+    document.querySelectorAll('[data-object="true"] *').forEach(function(el) {
+        if (el.children.length > 0) return;
+        var fs = parseFloat(window.getComputedStyle(el).fontSize);
+        if (fs < 28) return;
+        var text = el.textContent.trim();
+        var m = text.match(/^(\d+\.?\d*)\s*([^\d]{0,6})$/);
+        if (!m) return;
+        var num = parseFloat(m[1]);
+        if (num < 1 || num > 99999) return;
+        var dec = m[1].includes('.') ? m[1].split('.')[1].length : 0;
+        var suffix = m[2] || '';
+        var parent = el.closest('[data-object="true"]');
+        var pd = parent ? parseFloat(parent.style.animationDelay || 0) * 1000 : 0;
+        countUp(el, num, dec, suffix, pd + 250);
+    });
+})();
 </script>
 </body>
 </html>
