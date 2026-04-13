@@ -204,7 +204,7 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                                 type: 'line',
                                 smooth: true,
                                 data: outdoorTemp,
-                                lineStyle: { type: 'dotted', color: '#94A3B8', width: 2 },
+                                lineStyle: { type: 'dotted', color: '#94A3B8', width: 1.5 },
                                 showSymbol: false,
                                 z: 1
                             },
@@ -213,7 +213,7 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                                 type: 'line',
                                 step: 'end',
                                 data: fixedSetPoint,
-                                lineStyle: { color: '#475569', width: 2 },
+                                lineStyle: { color: '#475569', width: 1.5 },
                                 showSymbol: false,
                                 z: 2
                             },
@@ -222,7 +222,7 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                                 type: 'line',
                                 step: 'end',
                                 data: rlSetPoint,
-                                lineStyle: { color: '#8B5CF6', width: 3 },
+                                lineStyle: { color: '#8B5CF6', width: 1.5 },
                                 areaStyle: {
                                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                         { offset: 0, color: 'rgba(139, 92, 246, 0.2)' },
