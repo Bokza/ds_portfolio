@@ -302,19 +302,43 @@ window.addEventListener('resize', scaleSlide);
     }
 
     document.querySelectorAll('[data-object="true"] *').forEach(function(el) {
-        if (el.children.length > 0) return;
         var fs = parseFloat(window.getComputedStyle(el).fontSize);
         if (fs < 28) return;
-        var text = el.textContent.trim();
-        var m = text.match(/^(\d+\.?\d*)\s*([^\d]{0,6})$/);
+        // Get only the direct text node (not child element text)
+        var directText = '';
+        el.childNodes.forEach(function(node) {
+            if (node.nodeType === 3) directText += node.textContent;
+        });
+        directText = directText.trim();
+        var m = directText.match(/^(\d+\.?\d*)$/);
         if (!m) return;
         var num = parseFloat(m[1]);
         if (num < 1 || num > 99999) return;
         var dec = m[1].includes('.') ? m[1].split('.')[1].length : 0;
-        var suffix = m[2] || '';
+        // Find the text node to update directly
+        var textNode = null;
+        el.childNodes.forEach(function(node) {
+            if (node.nodeType === 3 && node.textContent.trim().match(/^\d/)) textNode = node;
+        });
+        if (!textNode) return;
         var parent = el.closest('[data-object="true"]');
         var pd = parent ? parseFloat(parent.style.animationDelay || 0) * 1000 : 0;
-        countUp(el, num, dec, suffix, pd + 250);
+        (function(tn, target, dec, startMs) {
+            setTimeout(function() {
+                var duration = 1100;
+                var t0 = null;
+                function step(ts) {
+                    if (!t0) t0 = ts;
+                    var p = Math.min((ts - t0) / duration, 1);
+                    p = 1 - Math.pow(1 - p, 3);
+                    var v = p * target;
+                    tn.textContent = dec ? v.toFixed(dec) : Math.floor(v);
+                    if (p < 1) requestAnimationFrame(step);
+                    else tn.textContent = dec ? target.toFixed(dec) : target;
+                }
+                requestAnimationFrame(step);
+            }, startMs);
+        })(textNode, num, dec, pd + 250);
     });
 })();
 </script>
