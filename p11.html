@@ -321,7 +321,8 @@
 
 </style>
 <style>
-html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background-color: #0F172A; }
+html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; background-color: #0F172A; display: flex; align-items: center; justify-content: center; }
+.slide-container { flex-shrink: 0; transform-origin: center center; }
 </style>
 <style id="portfolio-anim">
 @keyframes fadeInUp {
@@ -465,13 +466,8 @@ document.addEventListener('keydown', function(e) {
 function scaleSlide() {
     var slide = document.getElementById('slide-container') || document.querySelector('.slide-container');
     if (!slide) return;
-    var scaleX = window.innerWidth / 1280;
-    var scaleY = window.innerHeight / 720;
-    var scale = Math.min(scaleX, scaleY);
+    var scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
     slide.style.transform = 'scale(' + scale + ')';
-    slide.style.transformOrigin = 'top left';
-    slide.style.marginLeft = ((window.innerWidth - 1280 * scale) / 2) + 'px';
-    slide.style.marginTop = ((window.innerHeight - 720 * scale) / 2) + 'px';
 }
 window.addEventListener('load', scaleSlide);
 window.addEventListener('resize', scaleSlide);
