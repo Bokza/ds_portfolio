@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>데이터 사이언티스트 포트폴리오 커버</title>
+<title>데이터 사이언스 포트폴리오 커버</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #0F172A;
+            background-color: #0B1120;
             color: #F8FAFC;
             font-family: 'Noto Sans KR', sans-serif;
         }
@@ -26,54 +26,65 @@
             height: 720px;
             position: relative;
             overflow: hidden;
-            background-color: #12182b;
+            background-color: #0B1120;
         }
 
-        .bg-pattern {
+        .bg-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%231E293B" fill-opacity="0.3" fill-rule="evenodd"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></svg>');
+            background-image: 
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 0;
         }
 
-        .glow-green {
+        .glow-accent-1 {
             position: absolute;
-            width: 520px;
-            height: 520px;
-            background-color: rgba(16, 185, 129, 0.15);
+            width: 600px;
+            height: 600px;
+            background-color: rgba(59, 130, 246, 0.15); /* Blue */
             border-radius: 50%;
-            filter: blur(100px);
-            top: 330px;
-            left: -170px;
+            filter: blur(120px);
             z-index: 1;
         }
 
-        .glow-blue {
+        .glow-accent-2 {
             position: absolute;
-            width: 760px;
-            height: 760px;
-            background-color: rgba(59, 130, 246, 0.15);
+            width: 500px;
+            height: 500px;
+            background-color: rgba(16, 185, 129, 0.12); /* Green */
             border-radius: 50%;
-            filter: blur(120px);
-            top: -280px;
-            right: -180px;
+            filter: blur(100px);
+            z-index: 1;
+        }
+        
+        .glow-accent-3 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background-color: rgba(139, 92, 246, 0.1); /* Purple */
+            border-radius: 50%;
+            filter: blur(100px);
             z-index: 1;
         }
 
         .tag-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background-color: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(71, 85, 105, 0.5);
-            border-radius: 20px;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
             font-size: 15px;
-            color: #E2E8F0;
+            font-weight: 500;
+            color: #E0F2FE;
             white-space: nowrap;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
     </style>
 <style>
@@ -133,28 +144,29 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
 </style>
 </head>
 <body>
-<div class="slide-container" id="slide-container">
-<div class="bg-pattern" data-object="true" data-object-type="shape" style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 720px;"></div>
-<div class="glow-green" data-object="true" data-object-type="shape" style="position: absolute; left: -170px; top: 330px; width: 520px; height: 520px;"></div>
-<div class="glow-blue" data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: -280px; width: 760px; height: 760px;"></div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 70px; top: 140px; width: 300px; height: 30px; display: flex; align-items: center; gap: 12px;">
-<div style="background-color: #3B82F6; color: white; padding: 4px 12px; border-radius: 4px; font-size: 14px; font-weight: 700; letter-spacing: 1px;">PORTFOLIO</div>
-<div style="color: #94A3B8; font-size: 15px;">Updated 2026.04</div>
+<div id="slide-container">
+<div class="bg-grid" data-object="true" data-object-type="shape" style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 720px;"></div>
+<div class="glow-accent-1" data-object="true" data-object-type="shape" style="position: absolute; left: 780px; top: -200px; width: 600px; height: 600px;"></div>
+<div class="glow-accent-2" data-object="true" data-object-type="shape" style="position: absolute; left: -100px; top: 370px; width: 500px; height: 500px;"></div>
+<div class="glow-accent-3" data-object="true" data-object-type="shape" style="position: absolute; left: 300px; top: 200px; width: 400px; height: 400px;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 80px; top: 120px; width: 400px; height: 32px; display: flex; align-items: center; gap: 16px; z-index: 10;">
+<div style="background-color: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.5); color: #38BDF8; padding: 4px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;">PORTFOLIO</div>
+<div style="color: #94A3B8; font-size: 14px; font-weight: 400; letter-spacing: 0.5px;">Updated 2026.03</div>
 </div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 70px; top: 180px; width: 700px; height: 200px;">
-<p style="font-size: 72px; font-weight: 900; line-height: 1.1; margin: 0; color: white; letter-spacing: -1px;">데이터 사이언티스트</p>
-<p style="font-size: 72px; font-weight: 900; line-height: 1.1; margin: 0; color: #60A5FA; letter-spacing: -1px;">포트폴리오</p>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 80px; top: 175px; width: 800px; height: 195px; z-index: 10;">
+<p style="font-size: 76px; font-weight: 900; line-height: 1.15; margin: 0; color: #F8FAFC; letter-spacing: -1.5px;">데이터 사이언스</p>
+<p style="font-size: 76px; font-weight: 900; line-height: 1.15; margin: 0; color: #38BDF8; letter-spacing: -1.5px;">포트폴리오</p>
 </div>
-<div data-object="true" data-object-type="shape" style="position: absolute; left: 70px; top: 382px; width: 80px; height: 6px; background-color: #34D399;"></div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 70px; top: 430px; width: 680px; height: 80px;">
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 80px; top: 385px; width: 100px; height: 6px; background-color: #10B981; border-radius: 3px; z-index: 10;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 80px; top: 425px; width: 750px; height: 80px; z-index: 10;">
 <p style="font-size: 22px; font-weight: 300; color: #CBD5E1; line-height: 1.6; margin: 0;">
-        통계적 분석 모델링 역량과 <span style="font-weight: 700; color: white; border-bottom: 2px solid rgba(255,255,255,0.3);">프로덕션 ML 파이프라인 구축 경험</span>을 결합하여<br/>
+        통계적 분석 모델링 역량과 <span style="font-weight: 700; color: #F8FAFC; border-bottom: 2px solid rgba(16, 185, 129, 0.5);">프로덕션 ML 파이프라인 구축 경험</span>을 결합하여<br/>
         데이터의 실질적 가치를 창출하는 데이터 사이언티스트
     </p>
 </div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 70px; top: 540px; width: 800px; height: 48px; display: flex; gap: 12px; align-items: center; flex-wrap: nowrap;">
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 80px; top: 535px; width: 1000px; height: 50px; display: flex; gap: 16px; align-items: center; flex-wrap: nowrap; z-index: 10;">
 <div class="tag-badge">
-<i class="fa-solid fa-chart-line" style="color: #4ADE80;"></i>
+<i class="fa-solid fa-chart-line" style="color: #34D399;"></i>
 <span>Statistical Analysis</span>
 </div>
 <div class="tag-badge">
@@ -162,28 +174,29 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
 <span>Time Series Forecasting</span>
 </div>
 <div class="tag-badge">
-<i class="fa-solid fa-robot" style="color: #60A5FA;"></i>
+<i class="fa-solid fa-robot" style="color: #A78BFA;"></i>
 <span>LLM &amp; NLP</span>
 </div>
 <div class="tag-badge">
-<i class="fa-solid fa-server" style="color: #C084FC;"></i>
+<i class="fa-solid fa-server" style="color: #F472B6;"></i>
 <span>MLOps &amp; Engineering</span>
 </div>
 </div>
-<div data-object="true" data-object-type="chart" id="main-chart" style="position: absolute; left: 730px; top: 320px; width: 500px; height: 300px;"></div>
-<div data-object="true" data-object-type="shape" style="position: absolute; left: 70px; top: 610px; width: 1140px; height: 1px; background-color: rgba(71, 85, 105, 0.5);"></div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 70px; top: 640px; width: 300px; height: 50px;">
-<p style="font-size: 14px; color: #94A3B8; margin: 0 0 8px 0;">Core Competencies</p>
-<div style="display: flex; gap: 16px; font-size: 20px; color: #CBD5E1;">
+<div data-object="true" data-object-type="chart" id="main-chart" style="position: absolute; left: 680px; top: 220px; width: 600px; height: 380px; z-index: 5;"></div>
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 80px; top: 640px; width: 1120px; height: 1px; background-color: rgba(51, 65, 85, 0.6); z-index: 10;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 80px; top: 660px; width: 500px; height: 40px; display: flex; align-items: center; gap: 24px; z-index: 10;">
+<p style="font-size: 14px; font-weight: 500; color: #94A3B8; margin: 0; letter-spacing: 0.5px;">TECH STACK</p>
+<div style="display: flex; gap: 20px; font-size: 22px; color: #CBD5E1;">
 <i class="fa-brands fa-python"></i>
 <i class="fa-solid fa-brain"></i>
 <i class="fa-solid fa-database"></i>
 <i class="fa-brands fa-aws"></i>
-<i class="fa-solid fa-code-branch"></i>
+<i class="fa-brands fa-docker"></i>
+<i class="fa-solid fa-chart-simple"></i>
 </div>
 </div>
-<div data-object="true" data-object-type="textbox" style="position: absolute; left: 810px; top: 660px; width: 400px; height: 20px; text-align: right;">
-<p style="font-size: 12px; color: #64748B; margin: 0; letter-spacing: 0.5px;">CONFIDENTIAL - PORTFOLIO PRESENTATION</p>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 800px; top: 665px; width: 400px; height: 20px; text-align: right; z-index: 10;">
+<p style="font-size: 12px; font-weight: 400; color: #64748B; margin: 0; letter-spacing: 1px;">CONFIDENTIAL - PORTFOLIO PRESENTATION</p>
 </div>
 </div>
 <script>
@@ -194,25 +207,30 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
         const data1 = [];
         const data2 = [];
         
+        let prev1 = 50;
+        let prev2 = 30;
+        
         for (let i = 0; i <= 100; i++) {
-            const wave1 = Math.sin(i * 0.1) * 30 + Math.sin(i * 0.05) * 15 + 60;
-            const noise1 = Math.random() * 4 - 2;
-            data1.push([i, wave1 + noise1]);
+            const trend1 = Math.sin(i * 0.08) * 25 + Math.sin(i * 0.03) * 15 + 60;
+            const noise1 = (Math.random() * 2 - 1) * 2;
+            prev1 = prev1 * 0.3 + (trend1 + noise1) * 0.7;
+            data1.push([i, prev1]);
             
-            const wave2 = Math.sin(i * 0.1 - 0.5) * 15 + Math.sin(i * 0.05) * 10 + 40;
-            const noise2 = Math.random() * 2 - 1;
-            data2.push([i, wave2 + noise2]);
+            const trend2 = Math.sin(i * 0.08 - 0.7) * 15 + Math.sin(i * 0.04) * 10 + 40;
+            const noise2 = (Math.random() * 2 - 1) * 1.5;
+            prev2 = prev2 * 0.4 + (trend2 + noise2) * 0.6;
+            data2.push([i, prev2]);
         }
 
         const option = {
-        tooltip: { show: false },
-
-            animation: false,
+            animation: true,
+        animationDuration: 1500,
+        animationEasing: 'cubicOut',
             grid: {
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 10,
+                top: 20,
+                bottom: 20,
+                left: 20,
+                right: 20,
                 containLabel: false
             },
             xAxis: {
@@ -231,29 +249,37 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
                 {
                     type: 'line',
                     data: data1,
-                    smooth: false,
+                    smooth: 0.4,
                     showSymbol: false,
                     lineStyle: {
-                        color: '#3B82F6',
-                        width: 1.5
+                        color: '#38BDF8',
+                        width: 3,
+                        shadowColor: 'rgba(56, 189, 248, 0.5)',
+                        shadowBlur: 10,
+                        shadowOffsetY: 5
                     },
                     areaStyle: {
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
-                            { offset: 1, color: 'rgba(59, 130, 246, 0.0)' }
+                            { offset: 0, color: 'rgba(56, 189, 248, 0.25)' },
+                            { offset: 0.8, color: 'rgba(56, 189, 248, 0.02)' },
+                            { offset: 1, color: 'rgba(56, 189, 248, 0.0)' }
                         ])
-                    }
+                    },
+                    zlevel: 2
                 },
                 {
                     type: 'line',
                     data: data2,
-                    smooth: false,
+                    smooth: 0.4,
                     showSymbol: false,
                     lineStyle: {
                         color: '#10B981',
-                        width: 1.5,
-                        type: 'dashed'
-                    }
+                        width: 2,
+                        type: 'dashed',
+                        shadowColor: 'rgba(16, 185, 129, 0.3)',
+                        shadowBlur: 5
+                    },
+                    zlevel: 1
                 }
             ]
         };
@@ -261,10 +287,14 @@ html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%;
         myChart.setOption(option);
     });
 </script>
-
 <style>.slide-nav{position:fixed;bottom:24px;right:24px;display:flex;gap:10px;z-index:9999}.slide-nav a{background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.15);color:#F8FAFC;padding:6px 14px;border-radius:6px;text-decoration:none;font-family:"Noto Sans KR",sans-serif;font-size:12px;font-weight:500;backdrop-filter:blur(10px);transition:all 0.2s}.slide-nav a:hover{background:rgba(59,130,246,0.6);border-color:rgba(59,130,246,0.5)}</style>
 <div class="slide-nav"><a href="p2.html">다음 →</a></div>
-
+<script id="key-nav">
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  {  }
+    if (e.key === 'ArrowRight') { window.location.href='p2.html'; }
+});
+</script>
 <script>
 function scaleSlide() {
     var slide = document.getElementById('slide-container') || document.querySelector('.slide-container');
@@ -363,13 +393,6 @@ window.addEventListener('resize', scaleSlide);
         })(textNode, num, dec, pd + 250);
     });
 })();
-</script>
-<div class="dot-nav"><a href="index.html" class="active" title="페이지 1"></a><a href="p2.html" title="페이지 2"></a><a href="p3.html" title="페이지 3"></a><a href="p4.html" title="페이지 4"></a><a href="p5.html" title="페이지 5"></a><a href="p6.html" title="페이지 6"></a><a href="p7.html" title="페이지 7"></a><a href="p8.html" title="페이지 8"></a><a href="p9.html" title="페이지 9"></a><a href="p10.html" title="페이지 10"></a><a href="p11.html" title="페이지 11"></a><a href="p12.html" title="페이지 12"></a></div>
-<script id="key-nav">
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft')  {  }
-    if (e.key === 'ArrowRight') { window.location.href='p2.html'; }
-});
 </script>
 </body>
 </html>
